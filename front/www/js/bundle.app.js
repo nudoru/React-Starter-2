@@ -62,7 +62,7 @@
   \****************************/
 /***/ function(module, exports) {
 
-eval("console.log('Hello from index.js');\n\n//////////////////\n// WEBPACK FOOTER\n// ./front/app/index.js\n// module id = 0\n// module chunks = 0\n\n//# sourceURL=webpack:///./front/app/index.js?");
+eval("console.log('Hello from index.js!');\nconsole.log('blah blah');\n\n//////////////////\n// WEBPACK FOOTER\n// ./front/app/index.js\n// module id = 0\n// module chunks = 0\n\n//# sourceURL=webpack:///./front/app/index.js?");
 
 /***/ }
 /******/ ]);

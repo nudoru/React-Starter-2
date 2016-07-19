@@ -5,16 +5,19 @@ let buildPath = resolve(__dirname, 'front', 'www', 'js'),
 
 module.exports = env => {
   return {
-    entry  : mainPath,
+    entry  : {
+      app: mainPath
+    },
     output : {
       path    : buildPath,
-      filename: "bundle.js",
+      filename: "bundle.[name].js",
       pathinfo: !env.prod,
     },
     devtool: env.prod ? 'source-map' : 'eval',
     bail   : env.prod,
     module : {
       loaders: [
+        {test: /\.js$/, loader: 'babel!eslint', exclude: /node_modules/},
         {test: /\.css$/, loader: "style!css"}
       ]
     }
