@@ -1,12 +1,15 @@
 const {resolve} = require('path');
-
-let buildPath = resolve(__dirname, 'front', 'www', 'js'),
-    mainPath  = resolve(__dirname, 'front', 'app', 'index.js');
+const webpack = require('webpack');
+const buildPath = resolve(__dirname, 'front', 'www', 'js');
+const mainPath  = resolve(__dirname, 'front', 'app', 'index.js');
+const isProd = process.env.NODE_ENV === 'production';
+const isTest = process.env.NODE_ENV === 'test';
 
 module.exports = env => {
   return {
     entry  : {
-      app: mainPath
+      app   : mainPath,
+      vendor: ['lodash']
     },
     output : {
       path    : buildPath,
@@ -20,6 +23,9 @@ module.exports = env => {
         {test: /\.js$/, loader: 'babel!eslint', exclude: /node_modules/},
         {test: /\.css$/, loader: "style!css"}
       ]
-    }
+    },
+    plugins: [
+      isTest ? undefined : new webpack.optimize.CommonsChunkPlugin({name: 'vendor'})
+    ].filter(p => !!p)
   }
-}
+};
