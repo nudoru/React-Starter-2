@@ -22,6 +22,33 @@ module.exports = env => {
     module : {
       loaders: [
         {
+          test  : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          loader: 'file?name=[name].[ext]'
+        },
+        {
+          test  : /\.html$/,
+          loader: "file?name=[name].[ext]"
+        },
+        {
+          test   : /\.sass$/,
+          loaders: ["style", "css", "sass"]
+        },
+        {
+          test   : /\.scss$/,
+          loaders: ["style", "css", "sass"]
+        },
+        {
+          test  : /\.css$/,
+          loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}'
+        },
+        {
+          test   : /\.(jpe?g|png|gif|svg)$/i,
+          loaders: [
+            'file?hash=sha512&digest=hex&name=[hash].[ext]',
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          ]
+        },
+        {
           test   : /\.js$/,
           loader : 'babel!eslint',
           exclude: ['/node_modules/', '/app/vendor/']
