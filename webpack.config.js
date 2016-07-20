@@ -56,7 +56,17 @@ module.exports = env => {
         {test: /\.css$/, loader: "style!css"}
       ]
     },
+    sassLoader: {
+      indentedSyntax: true
+    },
+    eslint    : {
+      configFile   : './.eslintrc',
+      quiet        : false,
+      failOnWarning: false,
+      failOnError  : false
+    },
     plugins: removeEmpty([
+      new webpack.optimize.OccurrenceOrderPlugin(),
       isTest ? undefined : new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
       isProd ? undefined : new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
