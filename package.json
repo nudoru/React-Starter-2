@@ -9,7 +9,7 @@
     "validate-webpack:prod": "webpack-validator webpack.config.js --env.prod",
     "clean-www": "rimraf front/www/js/app/",
     "prestart": "npm run clean-www",
-    "start": "webpack-dev-server --inline --hot --env.dev --content-base front/www",
+    "start": "webpack-dev-server --inline --hot --env.dev --content-base front/www/",
     "prebuild": "npm run clean-www",
     "prebuild:prod": "npm run clean-www",
     "build": "webpack --env.dev",
@@ -27,6 +27,11 @@
     "url": "https://github.com/nudoru/React-Starter-2/issues"
   },
   "homepage": "https://github.com/nudoru/React-Starter-2#readme",
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "webpack-dev-server": "2.0.0-beta"
+  },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
     "babel-cli": "^6.10.1",
@@ -36,6 +41,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-webpack": "6.4.1",
     "babel-preset-react": "^6.11.1",
+    "babel-preset-react-hmre": "^1.1.1",
     "css-loader": "^0.23.1",
     "eslint": "2.13.0",
     "eslint-config-kentcdodds": "6.2.1",
@@ -49,8 +55,6 @@
     "node-sass": "^3.8.0",
     "path": "^0.12.7",
     "raw-loader": "^0.5.1",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
     "react-hot-loader": "^1.3.0",
     "react-loader": "^2.4.0",
     "rimraf": "2.5.2",
@@ -58,7 +62,6 @@
     "style-loader": "^0.13.1",
     "uglify-js": "^2.7.0",
     "webpack": "2.1.0-beta.19",
-    "webpack-dev-server": "2.0.0-beta",
     "webpack-validator": "2.1.3"
   }
 }

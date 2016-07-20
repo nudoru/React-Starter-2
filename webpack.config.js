@@ -20,6 +20,13 @@ module.exports = env => {
     devtool: env.prod ? 'source-map' : 'eval',
     bail   : env.prod,
     module : {
+      preLoaders: [
+        {
+          test   : /\.js$/,
+          loader : "eslint-loader",
+          exclude: ['/node_modules/', '/app/vendor/']
+        }
+      ],
       loaders: [
         {
           test  : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -45,13 +52,16 @@ module.exports = env => {
           test   : /\.(jpe?g|png|gif|svg)$/i,
           loaders: [
             'file?hash=sha512&digest=hex&name=[hash].[ext]',
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+            'image-Webapck?bypassOnDebug&optimizationLevel=7&interlaced=false'
           ]
         },
         {
           test   : /\.js$/,
-          loader : 'babel!eslint',
-          exclude: ['/node_modules/', '/app/vendor/']
+          loader : 'babel',
+          exclude: ['/node_modules/', '/app/vendor/'],
+          query: {
+            presets: [ 'es2015', 'react', 'react-hmre' ]
+          }
         },
         {test: /\.css$/, loader: "style!css"}
       ]
