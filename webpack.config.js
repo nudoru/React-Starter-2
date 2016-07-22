@@ -60,7 +60,8 @@ module.exports = env => {
           loader : 'babel',
           exclude: ['/node_modules/', '/app/vendor/'],
           query: {
-            presets: [ 'es2015', 'react', 'react-hmre' ]
+            presets: [ 'es2015', 'react', 'react-hmre' ],
+            compact: true
           }
         },
         {test: /\.css$/, loader: "style!css"}
