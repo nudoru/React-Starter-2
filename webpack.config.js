@@ -8,18 +8,18 @@ const isTest    = process.env.NODE_ENV === 'test';
 module.exports = env => {
   const removeEmpty = array => array.filter(i => !!i);
   return {
-    entry  : {
+    entry     : {
       app   : mainPath,
       vendor: ['lodash']
     },
-    output : {
+    output    : {
       path      : buildPath,
       filename  : "bundle.[name].js",
       publicPath: 'http://localhost:8080/js/app/'
     },
-    devtool: env.prod ? 'source-map' : 'eval',
-    bail   : env.prod,
-    module : {
+    devtool   : env.prod ? 'source-map' : 'eval',
+    bail      : env.prod,
+    module    : {
       preLoaders: [
         {
           test   : /\.js$/,
@@ -27,7 +27,7 @@ module.exports = env => {
           exclude: ['/node_modules/', '/app/vendor/']
         }
       ],
-      loaders: [
+      loaders   : [
         {
           test  : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
           loader: 'file?name=[name].[ext]'
@@ -59,8 +59,8 @@ module.exports = env => {
           test   : /\.js$/,
           loader : 'babel',
           exclude: ['/node_modules/', '/app/vendor/'],
-          query: {
-            presets: [ 'es2015', 'react', 'react-hmre' ],
+          query  : {
+            presets: ['es2015', 'react', 'react-hmre'],
             compact: true
           }
         },
@@ -76,7 +76,7 @@ module.exports = env => {
       failOnWarning: false,
       failOnError  : false
     },
-    plugins: removeEmpty([
+    plugins   : removeEmpty([
       new webpack.optimize.OccurrenceOrderPlugin(),
       isTest ? undefined : new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
       isProd ? undefined : new webpack.DefinePlugin({
@@ -84,4 +84,4 @@ module.exports = env => {
       })
     ])
   }
-};
+}

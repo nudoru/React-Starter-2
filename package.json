@@ -1,7 +1,10 @@
 {
   "name": "react-starter-2",
-  "version": "1.0.0",
-  "description": "react-starter-2",
+  "version": "0.1.0",
+  "description": "Starting point for React 15, Babel 6 and Webpack beta 2 projects",
+  "engines": {
+    "node": ">=4"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
