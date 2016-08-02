@@ -90,7 +90,6 @@ module.exports = env => {
       ]
     },
 
-    //autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}
     postcss: function () {
       return [require('autoprefixer'), require('precss')];
     },
