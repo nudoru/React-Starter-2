@@ -42,7 +42,7 @@ module.exports = env => {
     module: {
       preLoaders: [
         {
-          test   : /\.js$/,
+          test   : /\.jsx?$/,
           loader : "eslint-loader",
           exclude: ['/node_modules/', '/app/vendor/']
         }
@@ -60,8 +60,7 @@ module.exports = env => {
 
         {
           test  : /\.(sass|scss)$/,
-          loader: 'style-loader!css-loader!sass-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}'
-          // loaders: ["style", "css", "sass"]
+          loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}!sass-loader'
         },
 
         {
@@ -73,7 +72,7 @@ module.exports = env => {
           test   : /\.(jpe?g|png|gif|svg)$/i,
           loaders: [
             'file?hash=sha512&digest=hex&name=[hash].[ext]',
-            'image-Webapck?bypassOnDebug&optimizationLevel=7&interlaced=false'
+            'image-Webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
           ]
         },
 
