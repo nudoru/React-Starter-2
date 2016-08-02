@@ -1,25 +1,32 @@
 const {resolve} = require('path');
 const webpack   = require('webpack');
-const buildPath = resolve(__dirname, 'front', 'www', 'js', 'app');
-const mainPath  = resolve(__dirname, 'front', 'app', 'index.js');
+
+// Source
+const sourcePath  = resolve(__dirname, 'front', 'app', 'index.js');
+
+// Destination
+const destinationPath = resolve(__dirname, 'front', 'www', 'js', 'app');
+
+// Bools to determine build environment
 const isProd    = process.env.NODE_ENV === 'production';
 const isTest    = process.env.NODE_ENV === 'test';
 
 module.exports = env => {
+
   // Helper to remove empty elements from an array. Used in plugins below.
   const removeEmpty = array => array.filter(i => !!i);
-  
+
   return {
 
     entry  : {
       // Main application
-      app   : mainPath,
+      app   : sourcePath,
       // Vendor libs to include in separate file
       vendor: ['lodash']
     },
 
     output : {
-      path      : buildPath,
+      path      : destinationPath,
       // Name is replaced with keys from entry block
       filename  : "bundle.[name].js",
       publicPath: 'http://localhost:8080/js/app/'
@@ -67,12 +74,12 @@ module.exports = env => {
         },
 
         {
-          test   : /\.js$/,
+          test   : /\.jsx?$/,
           loader : 'babel',
-          // Don't process these dirs
           exclude: ['/node_modules/', '/app/vendor/'],
           query  : {
-            presets: ['stage-0', 'es2015', 'react', 'react-hmre'],
+            // TODO react-hmre causes prod build not to work?
+            presets: removeEmpty(['stage-0', 'es2015', 'react', isProd ? undefined : 'react-hmre']),
             compact: true
           }
         },
@@ -96,8 +103,6 @@ module.exports = env => {
     plugins: removeEmpty([
       // Optimize ID order
       new webpack.optimize.OccurrenceOrderPlugin(),
-      // Remove duplicates
-      new webpack.optimize.DedupePlugin(),
       // If we're not in testing, create a separate vendor bundle file
       isTest ? undefined : new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
       // If we're in prod, optimization
