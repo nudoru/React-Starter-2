@@ -60,12 +60,12 @@ module.exports = env => {
 
         {
           test  : /\.(sass|scss)$/,
-          loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}!sass-loader'
+          loader: 'style-loader!css-loader!postcss-loader!sass-loader'
         },
 
         {
           test  : /\.css$/,
-          loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}'
+          loader: 'style-loader!css-loader!postcss-loader'
         },
 
         {
@@ -82,13 +82,17 @@ module.exports = env => {
           exclude: ['/node_modules/', '/app/vendor/'],
           query  : {
             presets: removeEmpty(['stage-0', 'es2015-loose', 'react', isProd ? undefined : 'react-hmre']),
-            // presets: removeEmpty(['stage-0', 'es2015-loose', 'react']),
             compact: true
           }
         },
 
         {test: /\.css$/, loader: "style!css"}
       ]
+    },
+
+    //autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}
+    postcss: function () {
+      return [require('autoprefixer'), require('precss')];
     },
 
     sassLoader: {
