@@ -79,7 +79,7 @@ module.exports = env => {
           exclude: ['/node_modules/', '/app/vendor/'],
           query  : {
             // TODO react-hmre causes prod build not to work?
-            presets: removeEmpty(['stage-0', 'es2015', 'react', isProd ? undefined : 'react-hmre']),
+            presets: removeEmpty(['stage-0', 'es2015-loose', 'react', isProd ? undefined : 'react-hmre']),
             compact: true
           }
         },

@@ -31,8 +31,8 @@
   },
   "homepage": "https://github.com/nudoru/React-Starter-2#readme",
   "dependencies": {
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
+    "react": "^15.3",
+    "react-dom": "^15.3",
     "webpack-dev-server": "2.0.0-beta"
   },
   "devDependencies": {
@@ -41,8 +41,8 @@
     "babel-core": "^6.10.4",
     "babel-eslint": "6.0.4",
     "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-es2015-webpack": "6.4.1",
+    "babel-preset-es2015-loose": "^7.0.0",
+    "babel-preset-es2015-webpack-loose": "^6.3.14",
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
