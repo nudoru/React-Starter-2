@@ -6,20 +6,29 @@ const isProd    = process.env.NODE_ENV === 'production';
 const isTest    = process.env.NODE_ENV === 'test';
 
 module.exports = env => {
+  // Helper to remove empty elements from an array. Used in plugins below.
   const removeEmpty = array => array.filter(i => !!i);
+  
   return {
-    entry     : {
+
+    entry  : {
+      // Main application
       app   : mainPath,
+      // Vendor libs to include in separate file
       vendor: ['lodash']
     },
-    output    : {
+
+    output : {
       path      : buildPath,
+      // Name is replaced with keys from entry block
       filename  : "bundle.[name].js",
       publicPath: 'http://localhost:8080/js/app/'
     },
-    devtool   : env.prod ? 'source-map' : 'eval',
-    bail      : env.prod,
-    module    : {
+
+    devtool: env.prod ? 'source-map' : 'eval',
+    bail   : env.prod,
+
+    module : {
       preLoaders: [
         {
           test   : /\.js$/,
@@ -32,22 +41,23 @@ module.exports = env => {
           test  : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
           loader: 'file?name=[name].[ext]'
         },
+
         {
-          test  : /\.html$/,
+          test  : /\.html?$/,
           loader: "file?name=[name].[ext]"
         },
+
         {
-          test   : /\.sass$/,
-          loaders: ["style", "css", "sass"]
+          test  : /\.(sass|scss)$/,
+          loader: 'style-loader!css-loader!sass-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}'
+          // loaders: ["style", "css", "sass"]
         },
-        {
-          test   : /\.scss$/,
-          loaders: ["style", "css", "sass"]
-        },
+
         {
           test  : /\.css$/,
           loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 11"]}'
         },
+
         {
           test   : /\.(jpe?g|png|gif|svg)$/i,
           loaders: [
@@ -55,33 +65,48 @@ module.exports = env => {
             'image-Webapck?bypassOnDebug&optimizationLevel=7&interlaced=false'
           ]
         },
+
         {
           test   : /\.js$/,
           loader : 'babel',
+          // Don't process these dirs
           exclude: ['/node_modules/', '/app/vendor/'],
           query  : {
-            presets: ['es2015', 'react', 'react-hmre'],
+            presets: ['stage-0', 'es2015', 'react', 'react-hmre'],
             compact: true
           }
         },
+
         {test: /\.css$/, loader: "style!css"}
       ]
     },
+
     sassLoader: {
+      // Support indented terse syntax (SASS files)
       indentedSyntax: true
     },
-    eslint    : {
+
+    eslint: {
       configFile   : './.eslintrc',
       quiet        : false,
       failOnWarning: false,
       failOnError  : false
     },
-    plugins   : removeEmpty([
+
+    plugins: removeEmpty([
+      // Optimize ID order
       new webpack.optimize.OccurrenceOrderPlugin(),
+      // Remove duplicates
+      new webpack.optimize.DedupePlugin(),
+      // If we're not in testing, create a separate vendor bundle file
       isTest ? undefined : new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+      // If we're in prod, optimization
+      isProd ? undefined : new webpack.DefinePlugin({
+        'process.env': {NODE_ENV: '"production"'}
+      }),
       isProd ? undefined : new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
       })
     ])
   }
-}
+};

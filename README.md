@@ -1,4 +1,9 @@
 # React-Starter-2
 
-Webpack config based on Kent Dodds Egghead Webpack course https://egghead.io/courses/using-webpack-for-production-javascript-applications
+Bootstrap for React 15 projects with hot reloading and SASS styles.
+
+Static assets for the front end are `front/www/*` and all app development files are located in `front/app/*`.
+On build, the `front/www/js/app` directory is cleaned and new code is bundled there. 
+
+Entry point for the application is `front/app/index.js`.
 
