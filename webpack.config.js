@@ -1,31 +1,35 @@
 const {resolve} = require('path');
-const webpack   = require('webpack');
+const webpack = require('webpack');
 
 // Source
-const sourcePath  = resolve(__dirname, 'front', 'app', 'index.js');
+const sourcePath = resolve(__dirname, 'front', 'app', 'index.js');
 
 // Destination
 const destinationPath = resolve(__dirname, 'front', 'www', 'js', 'app');
 
 // Bools to determine build environment
-const isProd    = process.env.NODE_ENV === 'production';
-const isTest    = process.env.NODE_ENV === 'test';
+// const isProd = process.env.NODE_ENV === 'production';
+const isTest = process.env.NODE_ENV === 'test';
 
 module.exports = env => {
 
   // Helper to remove empty elements from an array. Used in plugins below.
   const removeEmpty = array => array.filter(i => !!i);
 
+  const isProd = env.prod ? true : false;
+
+  console.log('Building env: ',env, isProd, isTest);
+
   return {
 
-    entry  : {
+    entry: {
       // Main application
       app   : sourcePath,
       // Vendor libs to include in separate file
       vendor: ['lodash']
     },
 
-    output : {
+    output: {
       path      : destinationPath,
       // Name is replaced with keys from entry block
       filename  : "bundle.[name].js",
@@ -35,7 +39,7 @@ module.exports = env => {
     devtool: env.prod ? 'source-map' : 'eval',
     bail   : env.prod,
 
-    module : {
+    module: {
       preLoaders: [
         {
           test   : /\.js$/,
@@ -78,8 +82,8 @@ module.exports = env => {
           loader : 'babel',
           exclude: ['/node_modules/', '/app/vendor/'],
           query  : {
-            // TODO react-hmre causes prod build not to work?
             presets: removeEmpty(['stage-0', 'es2015-loose', 'react', isProd ? undefined : 'react-hmre']),
+            // presets: removeEmpty(['stage-0', 'es2015-loose', 'react']),
             compact: true
           }
         },
@@ -97,7 +101,7 @@ module.exports = env => {
       configFile   : './.eslintrc',
       quiet        : false,
       failOnWarning: false,
-      failOnError  : false
+      failOnError  : true
     },
 
     plugins: removeEmpty([
