@@ -2,6 +2,13 @@
 
 Bootstrap for React 15 projects with hot reloading and SASS styles. Built with Webpack 2 beta.
 
+- JavaScript
+    - Babel: Stage-0, Es2015 loose, React
+    - ESLint
+- CSS
+    - SASS indented
+    - PostCSS: stylelint, autoprefixer
+
 Static assets for the front end are `front/www/*` and all app development files are located in `front/app/*`.
 On build, the `front/www/js/app` directory is cleaned and new code is bundled there. 
 

@@ -1,5 +1,5 @@
 const {resolve} = require('path');
-const webpack = require('webpack');
+const webpack   = require('webpack');
 const styleLint = require('stylelint-webpack-plugin');
 
 // Source
@@ -19,7 +19,7 @@ module.exports = env => {
 
   const isProd = env.prod ? true : false;
 
-  console.log('Building env: ',env, isProd, isTest);
+  console.log('Building env: ', env, isProd, isTest);
 
   return {
 
@@ -49,26 +49,14 @@ module.exports = env => {
         }
       ],
       loaders   : [
-        {
-          test  : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-          loader: 'file?name=[name].[ext]'
-        },
-
-        {
-          test  : /\.html?$/,
-          loader: "file?name=[name].[ext]"
-        },
-
-        {
-          test  : /\.(sass|scss)$/,
+        {test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader'},
+        {test   : /\.(sass|scss)$/,
           loader: 'style-loader!css-loader!postcss-loader!sass-loader'
         },
-
-        {
-          test  : /\.css$/,
-          loader: 'style-loader!css-loader!postcss-loader'
+        {test: /\.html?$/, loader: "file?name=[name].[ext]"},
+        {test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          loader: 'file?name=[name].[ext]'
         },
-
         {
           test   : /\.(jpe?g|png|gif|svg)$/i,
           loaders: [
@@ -76,18 +64,15 @@ module.exports = env => {
             'image-Webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
           ]
         },
-
         {
           test   : /\.jsx?$/,
           loader : 'babel',
-          exclude: ['/node_modules/', '/app/vendor/'],
+          exclude: ['/node_modules/'],
           query  : {
             presets: removeEmpty(['stage-0', 'es2015-loose', 'react', isProd ? undefined : 'react-hmre']),
             compact: true
           }
-        },
-
-        {test: /\.css$/, loader: "style!css"}
+        }
       ]
     },
 
