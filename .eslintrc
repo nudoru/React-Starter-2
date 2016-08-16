@@ -1,11 +1,13 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 7,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
+  // Disabled because @autobind decorator caused illegal char error
+  //  "parserOptions": {
+  //    "ecmaVersion": 7,
+  //    "sourceType": "module",
+  //    "ecmaFeatures": {
+  //      "jsx": true
+  //    }
+  //  },
+  "parser": "babel-eslint",
   "plugins": [
     "react",
     "react-native"
@@ -18,6 +20,7 @@
     "no-new-wrappers": 1,
     "no-floating-decimal": 1,
     "no-extra-bind": 1,
+    "no-console": 0,
     "curly": 1,
     "default-case": 1,
     "dot-notation": 1,

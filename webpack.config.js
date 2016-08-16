@@ -1,6 +1,5 @@
 const {resolve} = require('path');
 const webpack   = require('webpack');
-const styleLint = require('stylelint-webpack-plugin');
 
 // Source
 const sourcePath = resolve(__dirname, 'front', 'app', 'index.js');
@@ -93,8 +92,6 @@ module.exports = env => {
     },
 
     plugins: removeEmpty([
-      // Lint CSS
-      new styleLint(),
       // Optimize ID order
       new webpack.optimize.OccurrenceOrderPlugin(),
       // If we're not in testing, create a separate vendor bundle file
